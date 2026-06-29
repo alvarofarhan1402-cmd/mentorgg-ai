@@ -1,0 +1,2 @@
+async function loadLeaderboard(){var res=await fetch('http://127.0.0.1:8000/api/leaderboard');var data=await res.json();var list=document.getElementById('leaderboardList');list.innerHTML='';data.data.forEach(function(user){var item=document.createElement('div');item.className='leaderboard-item';item.innerHTML='<span class=rank-badge>#'+user.rank+'</span><span class=player-name>'+user.username+'</span><span class=player-rank>'+user.user_rank+'</span>';list.appendChild(item);});}
+window.onload=loadLeaderboard;
