@@ -8,7 +8,7 @@ async function sendMessage() {
     chatBox.innerHTML += `<div class="chat-message bot" id="loading"><div class="message-content">⏳ MentorGG AI sedang mengetik...</div></div>`;
     chatBox.scrollTop = chatBox.scrollHeight;
     try {
-        const res = await fetch("http://127.0.0.1:8000/ai/chat", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message})});
+        const res = await fetch("https://stingily-famine-distill.ngrok-free.dev/ai/chat", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message})});
         const data = await res.json();
         document.getElementById("loading").remove();
         chatBox.innerHTML += `<div class="chat-message bot"><div class="message-content">${data.response}</div></div>`;
