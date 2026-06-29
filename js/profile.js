@@ -1,0 +1,1 @@
+function saveProfile(){var u=document.getElementById('editUsername').value;var r=document.getElementById('editRank').value;if(!u){alert('Isi username!');return;}localStorage.setItem('username',u);localStorage.setItem('rank',r);document.getElementById('profileUsername').textContent=u;document.getElementById('profileRank').textContent=r;alert('Tersimpan!');}
