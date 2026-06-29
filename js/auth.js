@@ -1,57 +1,15 @@
-// ===== HANDLE LOGIN =====
-function handleLogin() {
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-
-    // Validasi input kosong
-    if (email === '' || password === '') {
-        alert('Email dan password tidak boleh kosong!');
-        return;
-    }
-
-    // Validasi format email
-    if (!email.includes('@')) {
-        alert('Format email tidak valid!');
-        return;
-    }
-
-    // Sementara tampilkan pesan sukses
-    // Nanti akan dihubungkan ke backend
-    alert('Login berhasil! Dashboard akan segera dibuka.');
-window.location.href = 'dashboard.html';
-}// ===== HANDLE REGISTER =====
-function handleRegister() {
-    const username = document.getElementById('username').value;
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirm-password').value;
-
-    // Validasi input kosong
-    if (username === '' || email === '' || password === '' || confirmPassword === '') {
-        alert('Semua kolom harus diisi!');
-        return;
-    }
-
-    // Validasi format email
-    if (!email.includes('@')) {
-        alert('Format email tidak valid!');
-        return;
-    }
-
-    // Validasi panjang password
-    if (password.length < 6) {
-        alert('Password minimal 6 karakter!');
-        return;
-    }
-
-    // Validasi konfirmasi password
-    if (password !== confirmPassword) {
-        alert('Password dan konfirmasi password tidak sama!');
-        return;
-    }
-
-    // Sementara tampilkan pesan sukses
-    // Nanti akan dihubungkan ke backend
-    alert('Registrasi berhasil! Silakan login.');
-    window.location.href = 'login.html';
+async function handleLogin() {
+const email = document.getElementById('email').value;
+const password = document.getElementById('password').value;
+if (!email || !password) { alert('Isi semua kolom!'); return; }
+fetch('http://127.0.0.1:8000/auth/login', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password})}).then(r=>r.json()).then(data=>{ if (data.status==='success') { window.location.href='dashboard.html'; } else { alert(data.message); } });
+}
+async function handleRegister() {
+const username = document.getElementById('username').value;
+const email = document.getElementById('email').value;
+const password = document.getElementById('password').value;
+const confirmPassword = document.getElementById('confirm-password').value;
+if (!username||!email||!password) { alert('Semua kolom harus diisi!'); return; }
+if (password!==confirmPassword) { alert('Password tidak sama!'); return; }
+fetch('http://127.0.0.1:8000/auth/register', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username,email,password})}).then(r=>r.json()).then(data=>{ if (data.status==='success') { alert('Registrasi berhasil!'); window.location.href='login.html'; } else { alert(data.message); } });
 }
